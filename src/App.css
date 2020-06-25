@@ -289,6 +289,35 @@ button:active {
   animation: spin 1s linear infinite;
 }
 
+.book-dropdown {
+  position: absolute;
+  padding: 0;
+  background-color: #222222;
+  list-style-type: none;
+  width: 200px;
+  color: #dedede;
+  z-index: 5;
+  left: -135px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.book-dropdown li {
+  text-align: center;
+  transition: background-color 0.1s ease-in-out;
+}
+.book-dropdown li:hover {
+  cursor: pointer;
+  color: black;
+  background-color: #6e6e6e;
+}
+
+.dropdown-top {
+  color: black;
+  background-color: white;
+  border-bottom: 1px solid;
+  text-align: center;
+}
 @keyframes spin {
   from {
     transform: rotateZ(0deg);
