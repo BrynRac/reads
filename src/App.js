@@ -14,6 +14,7 @@ class BooksApp extends React.Component {
     currentlyReading: [],
     wantToRead: [],
     read: [],
+    allBooks: [],
     loading: true,
   };
 
@@ -43,11 +44,9 @@ class BooksApp extends React.Component {
     }));
   };
 
-  updateBookshelf = (event, book) => {
-    const name = event.target.value;
-
-    BooksAPI.update(book, name);
-    console.log(`Book added to ${name}`);
+  updateBookshelf = (value, book) => {
+    BooksAPI.update(book, value);
+    console.log(`Book added to ${value}`);
   };
 
   checkDuplicate = (bookId) => {

@@ -4,6 +4,8 @@ import Book from './Book';
 export default function Bookshelf(props) {
   const { shelfTitle, bookList } = props;
   console.log(bookList);
+
+  
   const noBooks = (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{shelfTitle}</h2>

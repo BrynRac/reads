@@ -194,6 +194,7 @@ button:active {
   background-position: center;
   background-size: 20px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  outline: none;
 }
 
 .book-shelf-changer select {
@@ -289,17 +290,25 @@ button:active {
   animation: spin 1s linear infinite;
 }
 
+.dropdown {
+  position: relative;
+  padding: 0;
+  width: 166px;
+  height: 255px;
+  z-index: 5;
+  left: -122px;
+  overflow: hidden;
+}
+
 .book-dropdown {
   position: absolute;
   padding: 0;
+  width: 100%;
   background-color: #222222;
   list-style-type: none;
-  width: 200px;
   color: #dedede;
-  z-index: 5;
-  left: -135px;
-  border-radius: 8px;
   overflow: hidden;
+  top: 35px;
 }
 
 .book-dropdown li {
@@ -314,10 +323,20 @@ button:active {
 
 .dropdown-top {
   color: black;
+  height: 35px;
   background-color: white;
   border-bottom: 1px solid;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 2px solid #006600;
+  border-right: 2px solid #006600;
+  border-top: 2px solid #006600;
+  width: 100%;
+  position: absolute;
+  z-index: 5;
 }
+
 @keyframes spin {
   from {
     transform: rotateZ(0deg);

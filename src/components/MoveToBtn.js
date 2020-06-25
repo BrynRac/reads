@@ -1,23 +1,4 @@
-// import React from 'react';
-
-// export default function MoveToBtn(props) {
-//   return (
-//     <div className="book-shelf-changer">
-//       <select onChange={(e) => props.updateBookshelf(e, props.book)}>
-//         <option value="move" disabled>
-//           Move to...
-//         </option>
-//         <option value="currentlyReading">Currently Reading</option>
-//         <option value="wantToRead">Want to Read</option>
-//         <option value="read">Read</option>
-//         <option value="none">None</option>
-//       </select>
-//     </div>
-//   );
-// }
-
 import React, { Component } from 'react';
-
 export class MoveToBtn extends Component {
   state = {
     isOpen: false,
@@ -29,18 +10,20 @@ export class MoveToBtn extends Component {
 
   render() {
     const { isOpen } = this.state;
-  
-
-    return <div tabIndex="0" className="book-shelf-changer" onBlur={() => this.toggleDropdown()} onFocus={() => this.toggleDropdown() }>
+    const {updateBookshelf, book} = this.props
+    // onBlur={() => this.toggleDropdown()} onFocus={() => this.toggleDropdown()
+    return <div tabIndex="0" className="book-shelf-changer" onClick={this.toggleDropdown} >
         {isOpen && (
-          <ul className="book-dropdown">
-          <div className="dropdown-top"><span>Add to...</span></div>
-          <li><span>Currently Reading</span></li>
-          <li><span>Want to Read</span></li>
-          <li><span>Read</span></li>
-          <li><span>None</span></li>
-          <li><span>Close</span></li>
-        </ul>
+          <div className="dropdown"> 
+              <div className="dropdown-top"><span>Add to...</span></div>
+            <ul className="book-dropdown">
+              <li onClick={e => updateBookshelf('currentlyReading', book)}><span>Currently Reading</span></li>
+              <li onClick={e => updateBookshelf('wantToRead', book)}><span>Want to Read</span></li>
+              <li onClick={e => updateBookshelf('read', book)}><span>Read</span></li>
+              <li onClick={e => updateBookshelf('none', book)}><span>None</span></li>
+            </ul>
+          </div>
+          
         )}
       </div>;
   }
