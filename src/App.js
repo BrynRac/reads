@@ -24,8 +24,8 @@ class BooksApp extends React.Component {
   getBooks = async () => {
     const response = await BooksAPI.getAll();
 
-    this.setState((prevState) => ({
-      allBooks: [...prevState.allBooks.concat(response)],
+    this.setState(() => ({
+      allBooks: [...response],
     }));
   };
 
@@ -34,14 +34,16 @@ class BooksApp extends React.Component {
     if (this.checkDuplicate(book.id && value !== 'none')) {
       this.setState({ popUpText: `Already on a bookshelf!` });
     } else if (value === 'none') {
+      
       // Remove book
       BooksAPI.update(book, value);
+      this.getBooks();
       this.setState({ popUpText: `Book removed!` });
     } else {
+
       // Update books
       BooksAPI.update(book, value);
-
-      // User feedback pop-up
+      this.getBooks();
       this.setState({ popUpText: `Book added!` });
     }
     setTimeout(() => {

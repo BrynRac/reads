@@ -97,31 +97,53 @@ export class SearchPage extends Component {
     loading: false,
   };
 
+  componentDidMount() {
+    if (this.state.query.length) {
+      const searchTerm = this.capitalize(this.state.query);
+      this.getData(searchTerm);
+    }
+  }
+
   handleChange = (event) => {
-    this.setState({ query: event.target.value });
+    const query = event.target.value;
+    this.setState({ query, loading: true }, () => {
+      this.getData(this.capitalize(query));
+    });
   };
 
-  handleSubmit = async (event) => {
-    event.preventDefault();
+  // handleSubmit = (event) => {
+  //   event.preventDefault();
 
-    const searchTerm = this.state.query;
+  //   const searchTerm = this.capitalize(this.state.query);
 
-    if (searchTerm === '') {
+  //   this.getData(searchTerm);
+  // };
+
+  capitalize(string) {
+    const lowerCase = string.toLowerCase();
+    return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
+  }
+
+  getData = async (query) => {
+    if (query === '') {
       return this.setState(() => ({ searchStatus: 'error' }));
-    } else if (!this.state.terms.includes(searchTerm)) {
+    } else if (!this.state.terms.includes(query)) {
       return this.setState(() => ({ searchStatus: 'error' }));
-    } else {
-      this.setState({ loading: true });
-      const response = await BooksAPI.search(this.state.query);
-      this.setState(() => ({
-        searchResults: [...response],
-        searchStatus: '',
-      }));
+    }
+    this.setState({ loading: true });
+    const response = await BooksAPI.search(query);
+    this.setState(() => ({
+      searchResults: [...response],
+      searchStatus: '',
+    }));
+
+    if (this.state.showSearchTerms) {
       this.toggleSearchTerms();
     }
+
     this.setState({ loading: false });
   };
-
+  
   toggleSearchTerms = () => {
     this.setState({ showSearchTerms: !this.state.showSearchTerms });
   };
@@ -177,7 +199,7 @@ export class SearchPage extends Component {
         )}
         {loading ? <Loader /> : searchWrapper}
         {this.props.popUpText !== '' && (
-        <PopUp popUpText={this.props.popUpText}/>
+          <PopUp popUpText={this.props.popUpText} />
         )}
       </div>
     );
