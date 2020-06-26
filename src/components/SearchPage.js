@@ -111,13 +111,13 @@ export class SearchPage extends Component {
     });
   };
 
-  // handleSubmit = (event) => {
-  //   event.preventDefault();
+  handleSubmit = (event) => {
+    event.preventDefault();
 
-  //   const searchTerm = this.capitalize(this.state.query);
+    const searchTerm = this.capitalize(this.state.query);
 
-  //   this.getData(searchTerm);
-  // };
+    this.getData(searchTerm);
+  };
 
   capitalize(string) {
     const lowerCase = string.toLowerCase();
