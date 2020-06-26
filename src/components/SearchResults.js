@@ -5,9 +5,7 @@ import Book from './Book';
 
 export default function SearchResults(props) {
   const { searchArr } = props;
-  if (searchArr.length) {
-    console.log(searchArr);
-  }
+ 
   return (
     <ol className="books-grid">
       {searchArr.length

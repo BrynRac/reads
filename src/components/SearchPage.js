@@ -5,6 +5,7 @@ import * as BooksAPI from '../BooksAPI';
 import SearchResults from './SearchResults';
 import TermWindow from './TermWindow';
 import Loader from './Loader';
+import PopUp from './PopUp';
 
 export class SearchPage extends Component {
   state = {
@@ -175,6 +176,9 @@ export class SearchPage extends Component {
           ''
         )}
         {loading ? <Loader /> : searchWrapper}
+        {this.props.popUpText !== '' && (
+        <PopUp popUpText={this.props.popUpText}/>
+        )}
       </div>
     );
   }

@@ -1,9 +1,16 @@
 import React from 'react';
-import Bookshelf from './Bookshelf';
 import { Link } from 'react-router-dom';
 
+// Components
+import Bookshelf from './Bookshelf';
+import PopUp from './PopUp';
+
 export default function MainPage(props) {
-  const { currentlyReading, wantToRead, read, updateBookshelf } = props;
+  const {
+    bookList,
+    updateBookshelf,
+    popUpText,
+  } = props;
 
   return (
     <div className="list-books">
@@ -11,17 +18,20 @@ export default function MainPage(props) {
         <div>
           <Bookshelf
             shelfTitle={'Currently Reading'}
-            bookList={currentlyReading}
+            bookList={bookList}
+            shelfValue={'currentlyReading'}
             updateBookshelf={updateBookshelf}
           />
           <Bookshelf
             shelfTitle={'Want to Read'}
-            bookList={wantToRead}
+            bookList={bookList}
+            shelfValue={'wantToRead'}
             updateBookshelf={updateBookshelf}
           />
           <Bookshelf
             shelfTitle={'Read'}
-            bookList={read}
+            shelfValue={'read'}
+            bookList={bookList}
             updateBookshelf={updateBookshelf}
           />
         </div>
@@ -31,6 +41,7 @@ export default function MainPage(props) {
           </Link>
         </div>
       </div>
+      {popUpText !== '' && <PopUp popUpText={popUpText} />}
     </div>
   );
 }

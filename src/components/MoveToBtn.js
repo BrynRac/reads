@@ -11,8 +11,8 @@ export class MoveToBtn extends Component {
   render() {
     const { isOpen } = this.state;
     const {updateBookshelf, book} = this.props
-    // onBlur={() => this.toggleDropdown()} onFocus={() => this.toggleDropdown()
-    return <div tabIndex="0" className="book-shelf-changer" onClick={this.toggleDropdown} >
+    
+    return <div tabIndex="0" className="book-shelf-changer" onBlur={() => this.toggleDropdown()} onFocus={() => this.toggleDropdown()} >
         {isOpen && (
           <div className="dropdown"> 
               <div className="dropdown-top"><span>Add to...</span></div>

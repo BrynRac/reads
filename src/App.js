@@ -11,11 +11,9 @@ import Loader from './components/Loader';
 
 class BooksApp extends React.Component {
   state = {
-    currentlyReading: [],
-    wantToRead: [],
-    read: [],
     allBooks: [],
     loading: true,
+    popUpText: '',
   };
 
   componentDidMount() {
@@ -25,49 +23,47 @@ class BooksApp extends React.Component {
 
   getBooks = async () => {
     const response = await BooksAPI.getAll();
-    const currentlyReadingArr = response.filter(
-      (book) => book.shelf === 'currentlyReading'
-    );
-    const wantToReadArr = response.filter(
-      (book) => book.shelf === 'wantToRead'
-    );
-    const readArr = response.filter((book) => book.shelf === 'read');
-
-    console.log(currentlyReadingArr);
 
     this.setState((prevState) => ({
-      currentlyReading: [
-        ...prevState.currentlyReading.concat(currentlyReadingArr),
-      ],
-      wantToRead: [...prevState.wantToRead.concat(wantToReadArr)],
-      read: [...prevState.read.concat(readArr)],
+      allBooks: [...prevState.allBooks.concat(response)],
     }));
   };
 
   updateBookshelf = (value, book) => {
-    BooksAPI.update(book, value);
-    console.log(`Book added to ${value}`);
+    // Check if book has already been added.
+    if (this.checkDuplicate(book.id && value !== 'none')) {
+      this.setState({ popUpText: `Already on a bookshelf!` });
+    } else if (value === 'none') {
+      // Remove book
+      BooksAPI.update(book, value);
+      this.setState({ popUpText: `Book removed!` });
+    } else {
+      // Update books
+      BooksAPI.update(book, value);
+
+      // User feedback pop-up
+      this.setState({ popUpText: `Book added!` });
+    }
+    setTimeout(() => {
+      this.removePopUp();
+    }, 1200);
+  };
+
+  removePopUp = () => {
+    this.setState({ popUpText: `` });
   };
 
   checkDuplicate = (bookId) => {
-    if (this.state.allBooks.includes(bookId)) {
-      alert('duplicate');
+    const id = this.state.allBooks.filter((book) => book.id === bookId);
+    if (id.length) {
       return true;
+    } else {
+      return false;
     }
-    return false;
-  };
-
-  removeBook = (bookId) => {
-    const book = this.state.allBooks.indexOf(bookId);
-    const shelf = this.state.allBooks[book][1];
-
-    this.setState((prevState) => ({
-      [`${shelf}`]: prevState.filter((id) => id !== bookId),
-    }));
   };
 
   render() {
-    const { currentlyReading, wantToRead, read, loading } = this.state;
+    const { loading, popUpText, allBooks } = this.state;
     const routes = (
       <Switch>
         <Route
@@ -75,19 +71,24 @@ class BooksApp extends React.Component {
           path="/"
           render={() => (
             <MainPage
-              currentlyReading={currentlyReading}
-              wantToRead={wantToRead}
-              read={read}
+              bookList={allBooks}
               updateBookshelf={this.updateBookshelf}
+              popUpText={popUpText}
             />
           )}
         />
         <Route
           path="/search"
-          render={() => <SearchPage updateBookshelf={this.updateBookshelf} />}
+          render={() => (
+            <SearchPage
+              updateBookshelf={this.updateBookshelf}
+              popUpText={this.state.popUpText}
+            />
+          )}
         />
       </Switch>
     );
+
     return (
       <Router>
         <div className="app">

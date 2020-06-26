@@ -337,6 +337,37 @@ button:active {
   z-index: 5;
 }
 
+
+
+.PopUp {
+  width: 300px;
+  height: 50px;
+  bottom: 20px;
+  left: 20px;
+  position: fixed;
+  color: #1f1f1f;
+  background-color: rgb(240, 240, 240);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.376), 0 0 6px rgba(0, 0, 0, 0.23);
+  animation: fade-in .6s ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+
+  }
+}
+
 @keyframes spin {
   from {
     transform: rotateZ(0deg);
