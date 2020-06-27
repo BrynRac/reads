@@ -113,7 +113,15 @@ export class SearchPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const query = this.state.query;
 
+    if (query === '') {
+      return this.setState(() => ({
+        searchResults: [],
+        loading: false,
+        searchStatus: '',
+      }));
+    }
     const searchTerm = this.capitalize(this.state.query);
 
     this.getData(searchTerm);
@@ -124,18 +132,35 @@ export class SearchPage extends Component {
     return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
   }
 
-  getData = async (query) => {
-    if (query === '') {
-      return this.setState(() => ({ searchStatus: 'error' }));
-    } else if (!this.state.terms.includes(query)) {
-      return this.setState(() => ({ searchStatus: 'error' }));
+  checkSearchErrors = (response) => {
+    if (response.error) {
+      return true;
     }
+    return false;
+  };
+
+  getData = async (query) => {
     this.setState({ loading: true });
     const response = await BooksAPI.search(query);
-    this.setState(() => ({
-      searchResults: [...response],
-      searchStatus: '',
-    }));
+
+    if (query === '') {
+      return this.setState(() => ({
+        searchResults: [],
+        loading: false,
+        searchStatus: '',
+      }));
+    } else if (this.checkSearchErrors(response)) {
+      return this.setState(() => ({
+        searchResults: [],
+        loading: false,
+        searchStatus: 'error',
+      }));
+    } else {
+      this.setState(() => ({
+        searchResults: [...response],
+        searchStatus: '',
+      }));
+    }
 
     if (this.state.showSearchTerms) {
       this.toggleSearchTerms();
@@ -143,7 +168,7 @@ export class SearchPage extends Component {
 
     this.setState({ loading: false });
   };
-  
+
   toggleSearchTerms = () => {
     this.setState({ showSearchTerms: !this.state.showSearchTerms });
   };
@@ -167,6 +192,7 @@ export class SearchPage extends Component {
           <SearchResults
             searchArr={this.state.searchResults}
             updateBookshelf={this.props.updateBookshelf}
+            bookList={this.props.bookList}
           />
         </div>
       </div>

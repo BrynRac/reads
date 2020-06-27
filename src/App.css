@@ -176,9 +176,10 @@ button:active {
 
 .book-top {
   position: relative;
-  height: 200px;
+  margin-top: 1rem;
   display: flex;
   align-items: flex-end;
+  height: 220px;
 }
 
 .book-shelf-changer {
@@ -353,6 +354,13 @@ button:active {
   align-items: center;
   box-shadow: 0 10px 12px rgba(0, 0, 0, 0.376), 0 0 6px rgba(0, 0, 0, 0.23);
   animation: fade-in .6s ease-in-out;
+}
+
+.currentShelfText {
+  text-align: center;
+  background: green;
+  color: white;
+  padding: .2rem;
 }
 
 @keyframes fade-in {

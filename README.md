@@ -11,11 +11,8 @@ npm start
 
 ## Usage
 
-Use the Search page to find books and add them to a bookshelf based on user input: 
+Use the Search page to find books and add them to a specific bookshelf based on user input.
 
-Currently reading
-Want to read
-Read
 
 ## Sources
 Data is stored using the Book Lender API: https://reactnd-books-api.udacity.com/

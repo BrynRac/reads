@@ -87,6 +87,7 @@ class BooksApp extends React.Component {
             <SearchPage
               updateBookshelf={this.updateBookshelf}
               popUpText={this.state.popUpText}
+              bookList={allBooks}
             />
           )}
         />

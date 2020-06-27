@@ -19,7 +19,7 @@ export default function Bookshelf(props) {
             .filter((book) => book.shelf === shelfValue)
             .map((book) => (
               <li key={book.id}>
-                <Book book={book} updateBookshelf={updateBookshelf} />
+                <Book book={book} updateBookshelf={updateBookshelf} bookList={bookList} onMainPage={true}/>
               </li>
             ))}
         </ol>

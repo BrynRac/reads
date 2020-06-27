@@ -2,10 +2,13 @@ import React from 'react';
 import MoveToBtn from './MoveToBtn';
 
 export default function Book(props) {
-  const { book } = props;
+  const { bookMatch, book, onMainPage } = props;
 
   return (
     <div className="book">
+      {!onMainPage && bookMatch[0] && (
+        <h4 className="currentShelfText">{bookMatch[0].shelf}</h4>
+      )}
       <div className="book-top">
         {book.imageLinks !== undefined ? (
           <img
