@@ -23,7 +23,6 @@ export class MoveToBtn extends Component {
               <li onClick={e => updateBookshelf('none', book)}><span>None</span></li>
             </ul>
           </div>
-          
         )}
       </div>;
   }

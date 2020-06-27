@@ -25,8 +25,8 @@ class BooksApp extends React.Component {
 
     this.setState(() => ({
       allBooks: [...response],
+      loading: false,
     }));
-    this.setState({ loading: false });
   };
 
   updateBookshelf = (value, book) => {
@@ -38,19 +38,21 @@ class BooksApp extends React.Component {
     } else if (value === 'none') {
       // Remove book
       BooksAPI.update(book, value);
+      this.getBooks();
       this.setState({ popUpText: `Book removed!` }, () => {
         this.getBooks();
       });
     } else {
       // Update books
       BooksAPI.update(book, value);
+      this.getBooks();
       this.setState({ popUpText: `Book added!` }, () => {
         this.getBooks();
       });
     }
     setTimeout(() => {
       this.removePopUp();
-    }, 1200);
+    }, 2000);
   };
 
   removePopUp = () => {

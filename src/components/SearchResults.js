@@ -15,7 +15,9 @@ export default function SearchResults(props) {
                 book={book}
                 updateBookshelf={updateBookshelf}
                 onMainPage={false}
-                bookMatch={bookList.filter(shelfBook => shelfBook.id === book.id)}
+                bookMatch={bookList.filter(
+                  (shelfBook) => shelfBook.id === book.id
+                )}
               />
             </li>
           ))

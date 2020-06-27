@@ -2,7 +2,7 @@ import React from 'react';
 import MoveToBtn from './MoveToBtn';
 
 export default function Book(props) {
-  const { bookMatch, book, onMainPage } = props;
+  const { bookMatch, book, onMainPage,  } = props;
 
   return (
     <div className="book">
@@ -20,7 +20,10 @@ export default function Book(props) {
           <div style={{ margin: 'auto' }}>No image available</div>
         )}
 
-        <MoveToBtn updateBookshelf={props.updateBookshelf} book={book} />
+        <MoveToBtn
+          updateBookshelf={props.updateBookshelf}
+          book={book}
+        />
       </div>
       <div className="book-title">
         {book.subtitle ? `${book.title}: ${book.subtitle}` : book.title}
